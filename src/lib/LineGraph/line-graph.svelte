@@ -3,11 +3,12 @@
     let graphWidth = 300;
     let graphHeight = 200;
 
+    let graphWidthPadding = 20;
+    let graphHeightPadding = 20;
+
     let xPointsCount = 10;
-    // @ts-ignore
     let yPointsCount = 10;
 
-    // @ts-ignore
     let points = [
         {
             x: 10,
@@ -23,11 +24,14 @@
         }
     ]
 
-    // @ts-ignore
+    /**
+	 * @param {any[]} points
+	 */
     function formatPoints(points) {
-        // @ts-ignore
         return points.map(point => `${point.x},${point.y}`).join(' ');
     }
+
+    let numbers = Array.from({ length: yPointsCount + 1 }, (_, i) => i).toReversed();
 
 </script>
 
@@ -36,16 +40,18 @@
      xmlns="http://www.w3.org/2000/svg">
      
      <g>
-        <line x1="0" x2="0" y1="0" y2="200" stroke="orange" stroke-width="5"/>
-        {#each Array(xPointsCount) as _, i}
-            <circle cx="0" cy={i * 20} r="5" stroke="red" fill="red"/>
+        <line x1={graphWidthPadding} x2={graphWidthPadding} y1={-graphHeightPadding} y2={graphHeight} stroke="orange" stroke-width="5"/>
+        {#each numbers as value, index}
+            <circle cx={graphWidthPadding} cy={index * 20 - graphHeightPadding} r="5" stroke="red" fill="red"/>
+            <text x={0} y={index * 20 - graphHeightPadding + 5} font-size="20">{value}</text>
         {/each}
      </g>
 
      <g>
-        <line x1="0" x2="300" y1="200" y2="200" stroke="orange" stroke-width="5"/>
+        <line x1={graphWidthPadding} x2={graphWidth} y1={graphHeight - graphHeightPadding} y2={graphHeight - graphHeightPadding} stroke="orange" stroke-width="5"/>
         {#each Array(xPointsCount) as _, i}
-            <circle cx="{i * 20}" cy="200" r="5" stroke="red" fill="red"/>
+            <circle cx="{i * 20 + graphWidthPadding}" cy={graphHeight - graphHeightPadding} r="5" stroke="red" fill="red"/>
+            <text x={i * 20 + graphWidthPadding - 5} y={graphHeight} font-size="20">{i}</text>
         {/each}
      </g>
 
