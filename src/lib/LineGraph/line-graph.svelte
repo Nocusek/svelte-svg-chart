@@ -39,14 +39,21 @@
      width={graphWidth} height={graphHeight}
      xmlns="http://www.w3.org/2000/svg">
      
+     <!--X line-->
      <g>
-        <line x1={graphWidthPadding} x2={graphWidthPadding} y1={-graphHeightPadding} y2={graphHeight} stroke="orange" stroke-width="5"/>
+        <path d="M {graphWidthPadding}, {-graphHeightPadding} 
+                 L {graphWidthPadding}, {graphHeight}"
+            stroke="green"
+            fill="transparent"
+            stroke-width="5"/>
+        <!-- <line x1={graphWidthPadding} x2={graphWidthPadding} y1={-graphHeightPadding} y2={graphHeight} stroke="orange" stroke-width="5"/> -->
         {#each numbers as value, index}
             <circle cx={graphWidthPadding} cy={index * 20 - graphHeightPadding} r="5" stroke="red" fill="red"/>
             <text x={0} y={index * 20 - graphHeightPadding + 5} font-size="20">{value}</text>
         {/each}
      </g>
 
+     <!--Y line-->
      <g>
         <line x1={graphWidthPadding} x2={graphWidth} y1={graphHeight - graphHeightPadding} y2={graphHeight - graphHeightPadding} stroke="orange" stroke-width="5"/>
         {#each Array(xPointsCount) as _, i}
@@ -55,6 +62,7 @@
         {/each}
      </g>
 
+     <!--Line-->
      <g>
         <polyline 
         class="polyline"
